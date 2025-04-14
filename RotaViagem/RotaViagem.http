@@ -1,0 +1,6 @@
+@RotaViagem_HostAddress = http://localhost:5045
+
+GET {{RotaViagem_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
