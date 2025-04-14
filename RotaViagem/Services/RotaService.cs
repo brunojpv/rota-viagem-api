@@ -43,7 +43,7 @@ namespace RotaViagem.Services
                 .OrderBy(r => r.Item2)
                 .FirstOrDefault();
 
-            return melhores.Item1 != null ? melhores : null;
+            return melhores.Item1 != null ? (melhores.Item1!, melhores.Item2) : null;
         }
     }
 }
