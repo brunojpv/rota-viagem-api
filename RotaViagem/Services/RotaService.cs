@@ -13,6 +13,9 @@ namespace RotaViagem.Services
             _context = context;
         }
 
+        /// <summary>
+        /// Busca a melhor rota entre origem e destino com o menor custo total.
+        /// </summary>
         public async Task<(List<string> Caminho, decimal Custo)> BuscarMelhorRotaAsync(string origem, string destino)
         {
             var rotas = await _context.Rotas.ToListAsync();
