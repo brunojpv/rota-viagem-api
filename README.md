@@ -54,7 +54,7 @@ dotnet run --project RotaViagem
 
 Abra o navegador em:
 
-🔗 https://localhost:7235/swagger
+🔗 `https://localhost:7235/swagger`
 
 ---
 
@@ -64,7 +64,7 @@ Abra o navegador em:
 dotnet test
 ```
 
-Testes de unidade com xUnit, cobrindo:
+Testes de unidade com `xUnit`, cobrindo:
 
 - Melhor rota entre cidades
 - Casos sem rota possível
@@ -74,7 +74,7 @@ Testes de unidade com xUnit, cobrindo:
 
 ## 📄 Documentação via Swagger
 
-- Swagger habilitado em /swagger
+- Swagger habilitado em `/swagger`
 - Comentários dos métodos e propriedades exibidos (via XML Docs)
 - Documentação limpa e intuitiva
 
