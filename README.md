@@ -66,40 +66,36 @@ dotnet test
 
 Testes de unidade com xUnit, cobrindo:
 
-Melhor rota entre cidades
-
-Casos sem rota possível
-
-Casos diretos e com múltiplas conexões
+- Melhor rota entre cidades
+- Casos sem rota possível
+- Casos diretos e com múltiplas conexões
 
 ---
 
 ## 📄 Documentação via Swagger
 
-Swagger habilitado em /swagger
-
-Comentários dos métodos e propriedades exibidos (via XML Docs)
-
-Documentação limpa e intuitiva
+- Swagger habilitado em /swagger
+- Comentários dos métodos e propriedades exibidos (via XML Docs)
+- Documentação limpa e intuitiva
 
 ---
 
 ## 🗂️ Estrutura do projeto
 
 ```bash
-| RotaViagem/                                                     |
-│ |                                                               |
-| ├── Models/           → Modelo da rota (Origem, Destino, Valor) |
-| ├── Data/             → DbContext e Seeder                      |
-| ├── Services/         → Lógica de cálculo da melhor rota        |
-| ├── Controllers/      → Minimal API separada em classe externa  |
-| ├── Program.cs        → Configuração do app e Swagger           |
-| └── RotaViagem.Tests/ → Testes automatizados com xUnit          |
+RotaViagem/
+|
+├── Models/           → Modelo da rota (Origem, Destino, Valor)
+├── Data/             → DbContext e Seeder
+├── Services/         → Lógica de cálculo da melhor rota
+├── Controllers/      → Minimal API separada em classe externa
+├── Program.cs        → Configuração do app e Swagger
+└── RotaViagem.Tests/ → Testes automatizados com xUnit
 ```
 
 ---
 
 ## 👤 Autor
-Bruno Vieira 
-💼 Founder @ Zenotech Solutions 
-🌐 github.com/brunojpv 
+Bruno Vieira  
+💼 Founder @ Zenotech Solutions  
+🌐 github.com/brunojpv  
