@@ -53,17 +53,26 @@ namespace RotaViagem.Tests
             Assert.Empty(caminho);
         }
 
-        [Theory(DisplayName = "Deve lançar exceção quando origem ou destino forem nulos ou vazios")]
+        [Theory(DisplayName = "Deve lançar ArgumentNullException quando origem ou destino forem nulos")]
         [InlineData(null, "CDG")]
-        [InlineData("", "CDG")]
         [InlineData("GRU", null)]
-        [InlineData("GRU", "")]
-        public async Task BuscarMelhorRotaAsync_DeveLancarExcecao_QuandoParametrosInvalidos(string? origem, string? destino)
+        public async Task BuscarMelhorRotaAsync_DeveLancar_ArgumentNullException(string? origem, string? destino)
         {
             var context = GetDbContext();
             var service = new RotaService(context);
 
-            await Assert.ThrowsAsync<ArgumentException>(() => service.BuscarMelhorRotaAsync(origem!, destino!));
+            await Assert.ThrowsAsync<ArgumentNullException>(() => service.BuscarMelhorRotaAsync(origem!, destino!));
+        }
+
+        [Theory(DisplayName = "Deve lançar ArgumentException quando origem ou destino forem vazios")]
+        [InlineData("", "CDG")]
+        [InlineData("GRU", "")]
+        public async Task BuscarMelhorRotaAsync_DeveLancar_ArgumentException_QuandoVazios(string origem, string destino)
+        {
+            var context = GetDbContext();
+            var service = new RotaService(context);
+
+            await Assert.ThrowsAsync<ArgumentException>(() => service.BuscarMelhorRotaAsync(origem, destino));
         }
     }
 }
