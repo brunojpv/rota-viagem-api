@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using RotaViagem.Data;
+using RotaViagem.DTOs;
 using RotaViagem.Models;
 using RotaViagem.Services;
 
@@ -13,26 +15,29 @@ namespace RotaViagem.Controllers
     {
         public static void MapRotasEndpoints(this WebApplication app)
         {
-            app.MapGet("/api/rotas", async Task<Ok<List<Rota>>> (RotaDbContext db) =>
+            app.MapGet("/api/rotas", async Task<Ok<List<RotaResponse>>> (RotaDbContext db, IMapper mapper) =>
             {
                 var rotas = await db.Rotas.ToListAsync();
-                return TypedResults.Ok(rotas);
+                var result = mapper.Map<List<RotaResponse>>(rotas);
+                return TypedResults.Ok(result);
             })
             .WithName("ObterTodasAsRotas")
             .WithDescription("Retorna a lista de todas as rotas cadastradas.")
             .WithTags("Rotas");
 
-            app.MapPost("/api/rotas", async Task<Created<Rota>> (RotaDbContext db, Rota rota) =>
+            app.MapPost("/api/rotas", async Task<Created<RotaResponse>> (RotaDbContext db, IMapper mapper, RotaCreateRequest request) =>
             {
+                var rota = mapper.Map<Rota>(request);
                 db.Rotas.Add(rota);
                 await db.SaveChangesAsync();
-                return TypedResults.Created($"/api/rotas/{rota.Id}", rota);
+                var result = mapper.Map<RotaResponse>(rota);
+                return TypedResults.Created($"/api/rotas/{rota.Id}", result);
             })
             .WithName("CriarRota")
             .WithDescription("Cadastra uma nova rota com origem, destino e valor.")
             .WithTags("Rotas");
 
-            app.MapPut("/api/rotas/{id}", async Task<Results<NoContent, NotFound>> (int id, RotaDbContext db, Rota rotaAtualizada) =>
+            app.MapPut("/api/rotas/{id}", async Task<Results<NoContent, NotFound>> (int id, RotaDbContext db, RotaCreateRequest rotaAtualizada) =>
             {
                 var rota = await db.Rotas.FindAsync(id);
                 if (rota is null) return TypedResults.NotFound();

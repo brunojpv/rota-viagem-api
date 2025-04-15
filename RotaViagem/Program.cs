@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using RotaViagem.Controllers;
 using RotaViagem.Data;
+using RotaViagem.Mappings;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,9 @@ builder.Services.AddDbContext<RotaDbContext>(opt =>
     opt.UseInMemoryDatabase("RotasDB"));
 
 builder.Services.AddEndpointsApiExplorer();
+
+var contactUrl = builder.Configuration["Swagger:ContactUrl"];
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
@@ -20,7 +24,7 @@ builder.Services.AddSwaggerGen(c =>
         Contact = new OpenApiContact
         {
             Name = "Bruno Vieira",
-            Url = new Uri("https://github.com/brunojpv")
+            Url = new Uri(contactUrl ?? "https://github.com/brunojpv")
         }
     });
 
@@ -28,6 +32,8 @@ builder.Services.AddSwaggerGen(c =>
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     c.IncludeXmlComments(xmlPath);
 });
+
+builder.Services.AddAutoMapper(typeof(RotaProfile));
 
 var app = builder.Build();
 
