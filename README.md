@@ -52,7 +52,7 @@ cd rota-viagem-api
 dotnet run --project RotaViagem
 ```
 
-### Abra o navegador em:
+Abra o navegador em:
 
 🔗 https://localhost:7235/swagger
 
@@ -64,7 +64,7 @@ dotnet run --project RotaViagem
 dotnet test
 ```
 
-### Testes de unidade com xUnit, cobrindo:
+Testes de unidade com xUnit, cobrindo:
 
 Melhor rota entre cidades
 
