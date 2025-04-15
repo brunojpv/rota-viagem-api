@@ -98,4 +98,4 @@ RotaViagem/
 ## 👤 Autor
 Bruno Vieira  
 💼 Founder @ Zenotech Solutions  
-🌐 github.com/brunojpv  
+🌐 [https://github.com/brunojpv/](https://www.linkedin.com/in/brunojpv/)  
