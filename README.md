@@ -1,6 +1,6 @@
 # ✈️ Rota Viagem API (.NET 8)
 
-API REST com arquitetura moderna em .NET 8 utilizando **Minimal APIs**, **Swagger** e **TypedResults**, focada em encontrar a **rota de viagem mais barata** entre dois aeroportos, independente de conexões.
+API REST com arquitetura moderna em .NET 8 utilizando **Minimal APIs**, **Swagger**, **TypedResults** e **AutoMapper**, focada em encontrar a **rota de viagem mais barata** entre dois aeroportos, mesmo com conexões.
 
 ---
 
@@ -26,6 +26,8 @@ Rotas possíveis:
 
 - [.NET 8](https://dotnet.microsoft.com/)
 - Minimal API com `TypedResults`
+- **AutoMapper** para conversão entre modelos e DTOs
+- **DTOs** para entrada e saída mais seguras (`RotaCreateRequest`, `RotaResponse`)
 - Swagger (Swashbuckle)
 - EF Core InMemory
 - xUnit para testes unitários
@@ -35,8 +37,8 @@ Rotas possíveis:
 ## 📦 Endpoints disponíveis
 
 | Método | Endpoint                        | Descrição                                       |
-|--------|---------------------------------|-------------------------------------------------|
-| GET    | `/api/rotas`                    | Lista todas as rotas cadastradas                |
+|--------|----------------------------------|-------------------------------------------------|
+| GET    | `/api/rotas`                    | Lista todas as rotas cadastradas (com DTOs)     |
 | POST   | `/api/rotas`                    | Cadastra uma nova rota                          |
 | PUT    | `/api/rotas/{id}`               | Atualiza uma rota existente                     |
 | DELETE | `/api/rotas/{id}`               | Remove uma rota                                 |
@@ -52,7 +54,7 @@ cd rota-viagem-api
 dotnet run --project RotaViagem
 ```
 
-Abra o navegador em:
+Acesse no navegador:
 
 🔗 `https://localhost:7235/swagger`
 
@@ -60,23 +62,30 @@ Abra o navegador em:
 
 ## 🧪 Executar os testes
 
+Este projeto inclui testes automatizados com `xUnit`, cobrindo:
+
+- Cálculo da melhor rota com múltiplas conexões
+- Rotas diretas
+- Casos sem rota possível
+- Validação de entrada (nulos e strings vazias)
+
+### Executar:
 ```bash
 dotnet test
 ```
-
-Testes de unidade com `xUnit`, cobrindo:
-
-- Melhor rota entre cidades
-- Casos sem rota possível
-- Casos diretos e com múltiplas conexões
 
 ---
 
 ## 📄 Documentação via Swagger
 
-- Swagger habilitado em `/swagger`
-- Comentários dos métodos e propriedades exibidos (via XML Docs)
-- Documentação limpa e intuitiva
+- Swagger ativado na rota `/swagger`
+- Exibe `summary` de métodos, parâmetros e schemas
+- Atualizada automaticamente com base nos DTOs
+
+Acesse em:
+```bash
+https://localhost:7235/swagger
+```
 
 ---
 
@@ -84,13 +93,15 @@ Testes de unidade com `xUnit`, cobrindo:
 
 ```bash
 RotaViagem/
-|
-├── Models/           → Modelo da rota (Origem, Destino, Valor)
-├── Data/             → DbContext e Seeder
-├── Services/         → Lógica de cálculo da melhor rota
-├── Controllers/      → Minimal API separada em classe externa
-├── Program.cs        → Configuração do app e Swagger
-└── RotaViagem.Tests/ → Testes automatizados com xUnit
+│
+├── Models/               → Modelo de domínio (Rota)
+├── DTOs/                 → Objetos de entrada e saída (RotaCreateRequest, RotaResponse)
+├── Mappings/             → AutoMapper Profile (RotaProfile)
+├── Data/                 → DbContext + Seed inicial
+├── Services/             → Lógica da melhor rota
+├── Controllers/          → Minimal API com IMapper
+├── Program.cs            → Configuração de Swagger, DI e AutoMapper
+└── RotaViagem.Tests/     → Testes de unidade com xUnit
 ```
 
 ---
