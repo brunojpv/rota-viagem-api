@@ -5,7 +5,10 @@ using RotaViagem.Data;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<RotaDbContext>(opt => opt.UseInMemoryDatabase("RotasDB"));
+
+builder.Services.AddDbContext<RotaDbContext>(opt =>
+    opt.UseInMemoryDatabase("RotasDB"));
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {

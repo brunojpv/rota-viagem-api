@@ -4,7 +4,7 @@ using RotaViagem.Models;
 
 namespace RotaViagem.Services
 {
-    public class RotaService
+    public sealed class RotaService
     {
         private readonly RotaDbContext _context;
 
@@ -18,6 +18,9 @@ namespace RotaViagem.Services
         /// </summary>
         public async Task<(List<string> Caminho, decimal Custo)> BuscarMelhorRotaAsync(string origem, string destino)
         {
+            ArgumentException.ThrowIfNullOrWhiteSpace(origem);
+            ArgumentException.ThrowIfNullOrWhiteSpace(destino);
+
             var rotas = await _context.Rotas.ToListAsync();
             var resultado = Buscar(origem, destino, rotas, new List<string>(), 0);
             return resultado ?? (new List<string>(), decimal.MaxValue);

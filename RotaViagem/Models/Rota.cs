@@ -13,12 +13,12 @@
         /// <summary>
         /// Código do aeroporto de origem (ex: GRU).
         /// </summary>
-        public string Origem { get; set; } = string.Empty;
+        public required string Origem { get; set; }
 
         /// <summary>
         /// Código do aeroporto de destino (ex: CDG).
         /// </summary>
-        public string Destino { get; set; } = string.Empty;
+        public required string Destino { get; set; }
 
         /// <summary>
         /// Valor (custo) da rota.

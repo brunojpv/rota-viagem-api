@@ -17,7 +17,7 @@ namespace RotaViagem.Tests
             return context;
         }
 
-        [Fact]
+        [Fact(DisplayName = "Deve retornar a rota mais barata de GRU para CDG com custo 40")]
         public async Task MelhorRota_GRU_CDG_DeveRetornarRotaDe40()
         {
             var context = GetDbContext();
@@ -29,7 +29,7 @@ namespace RotaViagem.Tests
             Assert.Equal(new[] { "GRU", "BRC", "SCL", "ORL", "CDG" }, caminho);
         }
 
-        [Fact]
+        [Fact(DisplayName = "Deve retornar rota direta de BRC para SCL com custo 5")]
         public async Task MelhorRota_BRC_SCL_DeveRetornar5()
         {
             var context = GetDbContext();
@@ -41,7 +41,7 @@ namespace RotaViagem.Tests
             Assert.Equal(new[] { "BRC", "SCL" }, caminho);
         }
 
-        [Fact]
+        [Fact(DisplayName = "Deve retornar MaxValue e caminho vazio quando não houver rota disponível")]
         public async Task MelhorRota_Inexistente_DeveRetornarMaxValue()
         {
             var context = GetDbContext();
@@ -51,6 +51,19 @@ namespace RotaViagem.Tests
 
             Assert.Equal(decimal.MaxValue, custo);
             Assert.Empty(caminho);
+        }
+
+        [Theory(DisplayName = "Deve lançar exceção quando origem ou destino forem nulos ou vazios")]
+        [InlineData(null, "CDG")]
+        [InlineData("", "CDG")]
+        [InlineData("GRU", null)]
+        [InlineData("GRU", "")]
+        public async Task BuscarMelhorRotaAsync_DeveLancarExcecao_QuandoParametrosInvalidos(string? origem, string? destino)
+        {
+            var context = GetDbContext();
+            var service = new RotaService(context);
+
+            await Assert.ThrowsAsync<ArgumentException>(() => service.BuscarMelhorRotaAsync(origem!, destino!));
         }
     }
 }
